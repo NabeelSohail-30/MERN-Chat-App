@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import { Server } from 'socket.io'; //replaces (import socketIo from 'socket.io')
+import http from 'http';
 
 const rooms = ['general'];
 
@@ -15,14 +17,12 @@ app.use(cors());
 
 const port = process.env.PORT || 5001;
 
-const server = require('http').createServer(app);
-
-const io = require('socket.io')(server, {
+/* const io = socketIo(server, {
     cors: {
-        origin: 'http:/localhost:3000',
+        origin: 'http://localhost:3000',
         methods: ['GET', 'POST']
     }
-});
+}); */
 
 /*-----------------------------------------------------------------*/
 
