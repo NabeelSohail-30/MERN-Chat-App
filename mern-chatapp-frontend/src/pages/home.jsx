@@ -31,7 +31,10 @@ function home() {
                 the bulk of the card's content.
               </Card.Text>
               <LinkContainer to={"/chat"}>
-                <Button variant="primary">Click Here</Button>
+                <Button variant="primary">
+                  Click Here{" "}
+                  <i className="fas fa-comments home-message-icon"></i>
+                </Button>
               </LinkContainer>
             </Card.Body>
           </Card>
