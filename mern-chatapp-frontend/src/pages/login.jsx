@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function login() {
+function Login() {
   return (
     <Container className="w-50 p-5 pt-2 mt-5">
       <Row className="mt-3">
@@ -24,8 +25,14 @@ function login() {
 
             <Form.Group className="d-flex justify-content-center">
               <Button variant="primary" type="submit">
-                Submit
+                Login
               </Button>
+            </Form.Group>
+
+            <Form.Group className="mt-3 d-flex justify-content-center">
+              <div>
+                <Link to={"/signup"}> Create Your Account</Link>
+              </div>
             </Form.Group>
           </Form>
         </Col>
@@ -34,4 +41,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;

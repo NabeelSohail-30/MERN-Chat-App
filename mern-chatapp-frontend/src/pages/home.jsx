@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-function home() {
+function Home() {
   return (
     <Container>
       <Row className="justify-content-md-center">
@@ -104,4 +104,4 @@ function home() {
   );
 }
 
-export default home;
+export default Home;
