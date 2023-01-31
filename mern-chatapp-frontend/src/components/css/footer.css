@@ -1,0 +1,28 @@
+.footerContainer {
+    background-color: #003559;
+    color: #b9d6f2;
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+}
+
+.media-icons {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.media-icons li {
+    margin: 0px 10px;
+}
+
+.media-icons li a i {
+    width: 40px;
+    height: 40px;
+}
