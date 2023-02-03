@@ -1,74 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
-import SendIcon from "@material-ui/icons/Send";
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import {
+  Paper,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  TextField,
+  Button,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "40%",
-    margin: "auto",
-    backgroundColor: "lightblue",
-  },
-
-  messageWindow: {
-    width: "40%",
-    margin: "auto",
-    height: "80vh",
-    display: "flex",
-    flexDirection: "column",
-  },
-
-  messageScreen: {
-    display: "flex",
-    flexDirection: "column",
-    overflowY: "auto",
-    backgroundColor: "#f5f5f5",
     width: "100%",
-    margin: "auto",
-    paddingTop: "20px",
     height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
-
+  messageList: {
+    width: "100%",
+    height: "85%",
+    overflowY: "auto",
+    padding: "10px",
+  },
+  messageItem: {
+    display: "flex",
+    alignItems: "flex-start",
+    margin: "10px 0",
+  },
   userMessage: {
     backgroundColor: theme.palette.primary.main,
     color: "#fff",
     borderRadius: "20px 20px 0 20px",
     padding: "10px 20px",
-    margin: "10px 0",
-    alignSelf: "flex-end",
+    maxWidth: "70%",
   },
   botMessage: {
-    backgroundColor: theme.palette.secondary.main,
-    color: "#fff",
+    backgroundColor: theme.palette.secondary.light,
+    color: "#333",
     borderRadius: "20px 20px 20px 0",
     padding: "10px 20px",
-    margin: "10px 0",
-    alignSelf: "flex-start",
+    maxWidth: "70%",
   },
   messageBox: {
-    width: "80%",
+    width: "100%",
     padding: "10px",
     display: "flex",
     alignItems: "center",
     marginTop: "auto",
-  },
-  textFieldContainer: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
   },
   textField: {
     flex: 1,
@@ -85,114 +66,64 @@ const useStyles = makeStyles((theme) => ({
 
 const Chat = () => {
   const classes = useStyles();
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([
+    {
+      type: "bot",
+      text: "Hello, How can I help you today?",
+    },
+  ]);
+
+  const handleSendMessage = () => {
+    if (message) {
+      setMessages([...messages, { type: "user", text: message }]);
+      setMessage("");
+    }
+  };
 
   return (
     <div className={classes.root}>
-      <Grid container>
-        <Paper className={classes.messageWindow}>
-          <List className={classes.messageScreen}>
-            <ListItem>
+      <Paper elevation={3} className={classes.messageList}>
+        <List>
+          {messages.map((message, index) => (
+            <ListItem key={index} className={classes.messageItem}>
+              {message.type === "user" && (
+                <ListItemAvatar>
+                  <Avatar>U</Avatar>
+                </ListItemAvatar>
+              )}
               <ListItemText
-                primary="Bot"
-                secondary="Hi, how are you today?"
-                className={classes.botMessage}
+                primary={message.text}
+                className={
+                  message.type === "user"
+                    ? classes.userMessage
+                    : classes.botMessage
+                }
               />
+              {message.type === "bot" && (
+                <ListItemAvatar>
+                  <Avatar>B</Avatar>
+                </ListItemAvatar>
+              )}
             </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="User"
-                secondary="I'm doing well, thanks!"
-                className={classes.userMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Bot"
-                secondary="That's great to hear! What can I help you with today?"
-                className={classes.botMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Bot"
-                secondary="Hi, how are you today?"
-                className={classes.botMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="User"
-                secondary="I'm doing well, thanks!"
-                className={classes.userMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Bot"
-                secondary="That's great to hear! What can I help you with today?"
-                className={classes.botMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Bot"
-                secondary="Hi, how are you today?"
-                className={classes.botMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="User"
-                secondary="I'm doing well, thanks!"
-                className={classes.userMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Bot"
-                secondary="That's great to hear! What can I help you with today?"
-                className={classes.botMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Bot"
-                secondary="Hi, how are you today?"
-                className={classes.botMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="User"
-                secondary="I'm doing well, thanks!"
-                className={classes.userMessage}
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Bot"
-                secondary="That's great to hear! What can I help you with today?"
-                className={classes.botMessage}
-              />
-            </ListItem>
-          </List>
-        </Paper>
-      </Grid>
-      <Paper className={classes.messageBox}>
-        <Grid container className={classes.textFieldContainer}>
-          <TextField
-            placeholder="Type your message here..."
-            className={classes.textField}
-            variant="outlined"
-            size="small"
-          />
-          <IconButton className={classes.sendButton}>
-            <SendIcon />
-          </IconButton>
-          <IconButton>
-            <InsertEmoticonIcon />
-          </IconButton>
-        </Grid>
+          ))}
+        </List>
+      </Paper>
+      <Paper elevation={3} className={classes.messageBox}>
+        <TextField
+          label="Enter message"
+          variant="outlined"
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          className={classes.textField}
+        />
+        <Button
+          variant="contained"
+          onClick={handleSendMessage}
+          className={classes.sendButton}
+        >
+          Send
+        </Button>
       </Paper>
     </div>
   );
