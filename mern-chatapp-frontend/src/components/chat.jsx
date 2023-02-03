@@ -3,53 +3,71 @@ import { makeStyles } from "@mui/styles";
 import { Send } from "@mui/icons-material";
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import SendIcon from "@material-ui/icons/Send";
 
-const useStyles = makeStyles({
-  screen: {
+const useStyles = makeStyles((theme) => ({
+  messageScreen: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    backgroundColor: "orange",
     width: "50%",
     margin: "auto",
+    paddingTop: "20px",
+    height: "100vh",
+    alignItems: "center",
   },
+
   messageWindow: {
-    width: "50rem",
-    height: "400px",
-    overflow: "scroll",
-    marginTop: "10px",
-    padding: "10px",
-    border: "1px solid #ddd",
-    borderRadius: "5px",
+    width: "100%",
+    margin: "auto",
+    height: "90vh",
     display: "flex",
     flexDirection: "column",
+    overflowY: "auto",
   },
-  leftBallon: {
-    backgroundColor: "#ddd",
-    padding: "10px",
-    borderRadius: "10px",
-    margin: "10px",
-    maxWidth: "60%",
-    alignSelf: "flex-start",
-  },
-  rightBallon: {
-    backgroundColor: "#03a9f4",
-    color: "white",
-    padding: "10px",
-    borderRadius: "10px",
-    margin: "10px",
-    maxWidth: "60%",
+
+  userMessage: {
+    backgroundColor: "green",
+    color: "#fff",
+    borderRadius: "20px 20px 0 20px",
+    padding: "10px 20px",
+    margin: "10px 0",
     alignSelf: "flex-end",
   },
-  textBox: {
+  botMessage: {
+    backgroundColor: "blue",
+    color: "#fff",
+    borderRadius: "20px 20px 20px 0",
+    padding: "10px 20px",
+    margin: "10px 0",
+    alignSelf: "flex-start",
+  },
+  messageBox: {
+    width: "100%",
+    padding: "10px",
     display: "flex",
-    marginTop: "10px",
-    width: "100%",
-    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: "auto",
+    backgroundColor: "lightgrey",
   },
-  field: {
+  textFieldContainer: {
     width: "100%",
+    display: "flex",
+    alignItems: "center",
   },
-});
+  textField: {
+    flex: 1,
+    marginRight: "10px",
+  },
+  sendButton: {
+    backgroundColor: "white",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "gray",
+    },
+  },
+}));
 
 function Chat() {
   const classes = useStyles();
@@ -95,12 +113,12 @@ function Chat() {
 
   return (
     <Box>
-      <div className={classes.screen}>
+      <div className={classes.messageScreen}>
         <div id="messageWindow" className={classes.messageWindow}>
           {myMessages.map((eachMessage, key) => {
             if (eachMessage.from === "bot") {
               return (
-                <div key={key} className={classes.leftBallon}>
+                <div key={key} className={classes.botMessage}>
                   <div>
                     <b>{eachMessage.from}:</b> <span>{eachMessage.text}</span>
                   </div>
@@ -108,7 +126,7 @@ function Chat() {
               );
             } else {
               return (
-                <div key={key} className={classes.rightBallon}>
+                <div key={key} className={classes.userMessage}>
                   <div>
                     <b>{eachMessage.from}:</b> <span>{eachMessage.text}</span>
                   </div>
@@ -118,10 +136,10 @@ function Chat() {
           })}
         </div>
 
-        <form onSubmit={sendMessage}>
-          <Box className={classes.textBox} sx={{}}>
+        <form onSubmit={sendMessage} className={classes.messageBox}>
+          <Box className={classes.textFieldContainer} sx={{}}>
             <TextField
-              className={classes.field}
+              className={classes.textField}
               onChange={(e) => {
                 setNewMessage(e.target.value);
               }}
@@ -130,8 +148,11 @@ function Chat() {
               variant="outlined"
             />
             <Box>
-              <IconButton aria-label="send" size="large" type="submit">
-                <Send fontSize="inherit" />
+              <IconButton className={classes.sendButton}>
+                <SendIcon />
+              </IconButton>
+              <IconButton>
+                <InsertEmoticonIcon />
               </IconButton>
             </Box>
           </Box>
